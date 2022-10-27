@@ -4,24 +4,34 @@ import React from "react";
 import axios from 'axios';
 
 const IconChange=({task})=>{
-    const [edit, setedit] = useState(false);
+    const [edit, setedit] = useState(true);
+    const [item,setitem]=useState({
+        email: localStorage.getItem("email"),
+        product: task
+    })
 
-    const updatechanges = () => {
-        setedit(!edit);
-        console.log(edit);
-    }
+ console.log(task)
+const handleonchange=(evt)=>{
+    console.log(item);
+    setitem({...item,[evt.target.name]:evt.target.value})
+    console.log(item);
+   
+    
+}
+const handlesubmit=()=>{
 
-
+}
 
     return (
         <>
-        <React.Fragment key={task.Productid}>
+        <React.Fragment key={item.product.Productid}>
         <tr >
-        <td >{task.Productname}</td>
-        <td contentEditable={edit}>{task.Cost}</td>
-        <td contentEditable={edit}>{task.Quantity}</td>
-        <td contentEditable={edit}>{task.CompanyName}</td>
-        <td className="col-sm-10" key={task.Productid}>{!edit?<FaRegEdit onClick={updatechanges}/>:<button type="button" className='btn btn-primary' onClick={updatechanges}>save</button>}</td>
+        <td>{item.product.Productid}</td>
+        <td >{item.product.Productname}</td>
+        <td contentEditable={edit} onChange={handleonchange}>{item.product.Cost}</td>
+        <td contentEditable={edit} onChange={handleonchange}>{item.product.Quantity}</td>
+        <td contentEditable={edit} onChange={handleonchange}>{item.product.CompanyName}</td>
+        <td ><FaRegEdit onClick={handlesubmit}/></td>
         </tr>
         </React.Fragment>
         </>
@@ -52,6 +62,7 @@ if(isset){
             <table className="table table-striped table-inverse table-responsive">
                 <thead className="thead-inverse">
                     <tr>
+                        <th>Product id</th>
                         <th>Product Name</th>
                         <th>Cost</th>
                         <th>Quantity</th>
@@ -63,7 +74,8 @@ if(isset){
 
                         Product.product.map((task) => (
 
-                           <IconChange task={task}/> 
+                           <IconChange task={task}/>
+
                         ))
                     }
 

@@ -32,7 +32,7 @@ useEffect(() => {
  
 
 
-const handleSubmit=()=>{
+const handleSubmit=(evt)=>{
     setFormerrors(validate(logindata));
     setIsSubmit(Formerrors.length>0?false:true);
     
@@ -41,7 +41,7 @@ const handleSubmit=()=>{
 if (isSubmit) {
   setisloading(true);
  axios.post("http://localhost:8080/login", logindata).then(res =>setresponse(res)).catch(err => console.log(err));
- 
+ console.log(response.data);
  if(response.data==="success"){
   console.log(response.data);
   localStorage.setItem("email",logindata.email);
@@ -57,6 +57,7 @@ if(isloading){
       </>
     )
 }
+evt.preventDefault();
 
 }
 
