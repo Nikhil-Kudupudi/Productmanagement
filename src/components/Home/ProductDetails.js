@@ -1,14 +1,18 @@
 import { FaRegEdit } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
+
 import React from "react";
 import axios from 'axios';
 
+import { useNavigate } from 'react-router-dom';
+
+
 const IconChange=({task})=>{
-    const [edit, setedit] = useState(true);
+    const navigate=useNavigate();
     const [item,setitem]=useState({
         email: localStorage.getItem("email"),
         product: task
-    })
+    });
 
  console.log(task)
 const handleonchange=(evt)=>{
@@ -16,11 +20,18 @@ const handleonchange=(evt)=>{
     setitem({...item,[evt.target.name]:evt.target.value})
     console.log(item);
    
+   
     
 }
-const handlesubmit=()=>{
 
-}
+const handlesubmit=()=>{
+    localStorage.setItem("prodid",item.product.Productid);
+    localStorage.setItem("prodname",item.product.Productname);
+    localStorage.setItem("Cost",item.product.Cost);
+    localStorage.setItem("Companyname",item.product.CompanyName);
+    navigate("/updateproduct",item.product)
+  }
+
 
     return (
         <>
@@ -28,10 +39,10 @@ const handlesubmit=()=>{
         <tr >
         <td>{item.product.Productid}</td>
         <td >{item.product.Productname}</td>
-        <td contentEditable={edit} onChange={handleonchange}>{item.product.Cost}</td>
-        <td contentEditable={edit} onChange={handleonchange}>{item.product.Quantity}</td>
-        <td contentEditable={edit} onChange={handleonchange}>{item.product.CompanyName}</td>
-        <td ><FaRegEdit onClick={handlesubmit}/></td>
+        <td onChange={handleonchange}>{item.product.Cost}</td>
+        <td  onChange={handleonchange}>{item.product.Quantity}</td>
+        <td onChange={handleonchange}>{item.product.Companyname}</td>
+        <td><FaRegEdit onClick={handlesubmit}/></td>
         </tr>
         </React.Fragment>
         </>
@@ -39,6 +50,8 @@ const handlesubmit=()=>{
 
 
 }
+
+
 function ProductDetails() {
     const [Product,setProduct]=useState({
         email :localStorage.getItem("email"),
@@ -47,12 +60,17 @@ function ProductDetails() {
         ]
     });
     const [isset,setisset]=useState(true);
+    const [ischeck,setischeck]=useState({});
 if(isset){
     axios.get("http://localhost:8080/productdetails/"+Product.email,
     
     ).then(res=>setProduct(res.data)).catch(err=>console.log(err));
     setisset(false);
 }
+
+const [val,setval]=useState({});
+
+
 
     return (
         <div className="">
@@ -72,10 +90,13 @@ if(isset){
                 <tbody>
                     {
 
-                        Product.product.map((task) => (
-
-                           <IconChange task={task}/>
-
+                        Product.product.map((task) =>( 
+                           
+                           <>
+                           <IconChange task={task} />
+                           
+                           </>
+                        
                         ))
                     }
 
@@ -87,4 +108,5 @@ if(isset){
 
     )
 }
+
 export default ProductDetails;

@@ -10,7 +10,7 @@ const AddProduct=()=>{
     Productname:'',
     Cost:0,
     Quantity:0,
-    CompanyName:''
+    Companyname:''
     }
   );
 const [Product, setProduct] = useState({
