@@ -9,6 +9,7 @@ import UpdateProduct from './components/Home/UpdateProduct';
 function App(props) {
   return (
     <>
+    
   <Router>
   <Suspense fallback={<div>Loading...</div>}>
     <Routes>
@@ -20,6 +21,7 @@ function App(props) {
     </Routes>
   </Suspense>
 </Router>
+
 </>
   );
   }
