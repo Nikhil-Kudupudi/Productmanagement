@@ -9,11 +9,11 @@ import UpdateProduct from './components/Home/UpdateProduct';
 function App(props) {
   return (
     <>
-   <BrowserRouter basename="/Productmanagement
+   <BrowserRouter basename="/productmanagement
 ">
 
     <Routes>
-      <Route exact path="/Productmanagement
+      <Route exact path="/productmanagement
 " element= {<User/>} />
       <Route  path="/Login" element= {<Login/>} />
       <Route path="/home" element={<Home/>} />
