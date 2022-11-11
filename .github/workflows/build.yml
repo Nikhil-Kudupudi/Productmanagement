@@ -15,8 +15,8 @@ jobs:
       - run: npm i
       - run: npm run build
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: "sqp_939a1c2a242fcc4f2a2ce69d7cb4b7ebdf6aa940"
+          SONAR_HOST_URL: "http://localhost:9000"
       # If you wish to fail your job when the Quality Gate is red, uncomment the
       # following lines. This would typically be used to fail a deployment.
       # - uses: sonarsource/sonarqube-quality-gate-action@master
